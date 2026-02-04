@@ -36,7 +36,7 @@
       <button class="border px-4 py-1" x-on:click="num = num*1 + 1">Click me</button>
       <p x-text="num"></p>
 
-      <div class="relative">
+      <div>
       <button class="border px-4 py-1 flex gap-x-2 items-center"
       @click="is_visible = !is_visible">
         Языки программирования
@@ -44,7 +44,7 @@
         <div class="h-2 w-2 border-r-2 border-b-2 rotate-45"></div>
       </button>
 
-      <ul x-show="is_visible" class="absolute">
+      <ul x-show="is_visible">
         <template x-for="lang in langs">
           <li class="cursor-pointer hover:bg-gray-200" @click="str2 = lang">
             <span x-text="lang"></span>
@@ -62,7 +62,7 @@
 
     <div x-data="{ categories: [],
       is_visible: false,
-     }" x-init="fetch('http://f1226816.xsph.ru/api/categories')
+     }" x-init="fetch('https://f1226816.xsph.ru/api/categories')
     .then(response => response.json())
     .then(data => categories = data);
     console.log(categories);">
@@ -83,7 +83,7 @@
       </ul>
       </div>
       <button class="border px-2 py-1"
-      x-init="fetch('http://f1226816.xsph.ru/api/categories'+category.id, {method:'DELETE', headers:{'Accept':'application/json'}})
+      x-init="fetch('https://f1226816.xsph.ru/api/categories'+category.id, {method:'DELETE', headers:{'Accept':'application/json'}})
      .then(response => response.json())
      .then(data => message = data);
      console.log(message);">Delete</button>
