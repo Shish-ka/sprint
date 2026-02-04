@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <script src="../js/alpine.js" defer></script>
+</head>
+<body class="flex flex-col h-screen ">
+  <header class="flex justify-between bg-gray-200 text-gray-400 py-2 px-8">
+    <a href="" class="hover:text-gray-900">Home</a>
+
+    <nav class="flex gap-x-4">
+      <a href="" class="hover:text-gray-900">Categories</a>
+      <a href="" class="hover:text-gray-900">Posts</a>
+    </nav>
+
+    <ul class="flex gap-x-2">
+      <li><a href="" class="hover:text-gray-900">Sign in</a></li>
+      <li><a href="" class="hover:text-gray-900">Sign up</a></li>
+      <li><a href="" class="hover:text-gray-900">Exit</a></li>
+    </ul>
+  </header>
+
+  <main class="flex-grow border">
+    <div x-data="{
+      str: 'Hello AlpineJS',
+      str2: '',
+      num:'',
+      is_visible: false,
+      langs: ['HTMl', 'CSS', 'JS', 'PHP', '1C'],
+    }" class=" bg-amber-200">
+      <input type="text" class="border" x-model="str2">
+      <p x-text="str"></p>
+      <span x-text="str2"></span>
+      <button class="border px-4 py-1" x-on:click="num = num*1 + 1">Click me</button>
+      <p x-text="num"></p>
+
+      <div class="relative">
+      <button class="border px-4 py-1 flex gap-x-2 items-center"
+      @click="is_visible = !is_visible">
+        Языки программирования
+
+        <div class="h-2 w-2 border-r-2 border-b-2 rotate-45"></div>
+      </button>
+
+      <ul x-show="is_visible" class="absolute">
+        <template x-for="lang in langs">
+          <li class="cursor-pointer hover:bg-gray-200" @click="str2 = lang">
+            <span x-text="lang"></span>
+            <button class="border">Delete</button>
+          </li>
+          
+        </template>
+      </ul>
+      </div>
+      
+    </div>
+
+    <section class="container">
+    <h1 class="font-bold text-3xl">Categories</h1>
+
+    <div x-data="{ categories: [],
+      is_visible: false,
+     }" x-init="fetch('http://djikfyt-m1.prof.ru/api/categories')
+    .then(response => response.json())
+    .then(data => categories = data);
+    console.log(categories);">
+
+    <ul>
+      <template x-for="(category, index) in categories">
+      <li class="grid grid-cols-[40px_1fr_auto_auto] gap-x-2 hover:bg-gray-200"
+      x-data="{is_visible: false,
+        message: '',
+      }"><span x-text="index+1"></span>
+      <span x-text="category.name"></span>
+      <div><button @click="is_visible = !is_visible" class="border px-2 py-1">Show</button>
+      <ul x-show="is_visible">
+        <li><span>Created at:</span>
+        <span x-text="category.created_at"></span></li>
+        <li><span>Created at:</span>
+          <span x-text="category.created_at"></span></li>
+      </ul>
+      </div>
+      <button class="border px-2 py-1"
+      x-init="fetch('http://djikfyt-m1.prof.ru/api/categories'+category.id, {method:'DELETE', headers:{'Accept':'application/json'}})
+     .then(response => response.json())
+     .then(data => message = data);
+     console.log(message);">Delete</button>
+      </li>
+    </template>
+    </ul>
+
+    </div>
+    </section>
+  </main>
+
+  <footer>
+    footer
+  </footer>
+</body>
+</html>
