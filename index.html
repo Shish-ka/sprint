@@ -62,7 +62,7 @@
 
     <div x-data="{ categories: [],
       is_visible: false,
-     }" x-init="fetch('http://f1226816.xsph.ru/api/categories')
+     }" x-init="fetch('f1226816.xsph.ru/api/categories')
     .then(response => response.json())
     .then(data => categories = data);
     console.log(categories);">
@@ -83,7 +83,7 @@
       </ul>
       </div>
       <button class="border px-2 py-1"
-      x-init="fetch('http://f1226816.xsph.ru/api/categories'+category.id, {method:'DELETE', headers:{'Accept':'application/json'}})
+      x-init="fetch('f1226816.xsph.ru/api/categories'+category.id, {method:'DELETE', headers:{'Accept':'application/json'}})
      .then(response => response.json())
      .then(data => message = data);
      console.log(message);">Delete</button>
